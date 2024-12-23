@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="per" class="com.demo.mybeans.Person">
+		<constructor-arg name="personId" value="102"></constructor-arg>
+		<constructor-arg name="personFirstName" value="Emma"></constructor-arg>
+		<constructor-arg name="personLastName" value="Watson"></constructor-arg>
+	</bean>
+	
+	<bean id="per1" class="com.demo.mybeans.Person">
+		<property name="personId" value="103"></property>
+		<property name="personFirstName" value="Priyanka"></property>
+		<property name="personLastName" value="Chopra"></property>
+	</bean>
+</beans>
