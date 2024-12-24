@@ -28,10 +28,10 @@ public class BeanConfig {
 	
 	@Bean
 	public Employee employee() {
-		Employee emp = new Employee();
-		emp.setEmpId(6060);
-		emp.setEmpName("Ron Weasely");
-		emp.setEmpDeptartment(department()); // setter injection
+		Employee emp = new Employee(6060, "Ron Weasely", department());
+//		emp.setEmpId(6060);
+//		emp.setEmpName("Ron Weasely");
+//		emp.setEmpDeptartment(department()); // setter injection
 		return emp;
 	}
 	
