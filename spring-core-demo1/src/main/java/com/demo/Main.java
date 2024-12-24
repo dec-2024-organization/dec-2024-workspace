@@ -2,6 +2,7 @@ package com.demo;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.demo.mybeans.Employee;
 import com.demo.mybeans.Person;
 
 public class Main {
@@ -19,6 +20,9 @@ public class Main {
 		
 		Person person3 = context.getBean("per1", Person.class);
 		System.out.println(person3);
+		
+		Employee employee1 = context.getBean("emp1", Employee.class);
+		System.out.println(employee1);
 		
 	}
 

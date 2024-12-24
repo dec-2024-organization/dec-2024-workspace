@@ -15,4 +15,16 @@
 		<property name="personFirstName" value="Priyanka"></property>
 		<property name="personLastName" value="Chopra"></property>
 	</bean>
+	
+	<bean id="emp1" class="com.demo.mybeans.Employee">
+		<constructor-arg name="empId" value="2001"></constructor-arg>
+		<constructor-arg name="empName" value="Daniel Radcliff"></constructor-arg>
+		<constructor-arg name="empDepartment" ref="dept"></constructor-arg>
+	</bean>
+	
+	<bean id="dept" class="com.demo.mybeans.Department">
+		<property name="deptId" value="501"></property>
+		<property name="deptName" value="HR"></property>
+	</bean>
+	
 </beans>
