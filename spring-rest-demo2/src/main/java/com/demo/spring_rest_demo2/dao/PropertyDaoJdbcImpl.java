@@ -8,7 +8,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.demo.spring_rest_demo2.pojo.PropertyPojo;
+
+@Repository
 
 public class PropertyDaoJdbcImpl implements PropertyDao{
 
@@ -57,15 +61,15 @@ public class PropertyDaoJdbcImpl implements PropertyDao{
 	public PropertyPojo addProperty(PropertyPojo newProperty) {
 		Connection conn = DBUtil.makeConnection();
 		try {
-			String query = "insert into property_details(property_name, property_description, property_location, property_image_url) values (?, ?, ?, ?);";
+			String query = "insert into property_details(property_name, property_description, property_location, property_image_url) values (?, ?, ?, ?)";
 			PreparedStatement stmt = conn.prepareStatement(query);
 			stmt.setString(1, newProperty.getPropertyName());
 			stmt.setString(2, newProperty.getPropertyDescription());
 			stmt.setString(3, newProperty.getPropertyLocation());
 			stmt.setString(4, newProperty.getPropertyImageUrl());
-			stmt.executeUpdate(query);
+			stmt.executeUpdate();
 			
-			query = " select last_insert_id()";
+			query = "select last_insert_id()";
 			Statement stmt2 = conn.createStatement();
 			ResultSet rs = stmt2.executeQuery(query);
 			if((rs.next())) {
@@ -84,8 +88,8 @@ public class PropertyDaoJdbcImpl implements PropertyDao{
 			String query = "update property_details set property_location=? where property_id=?";
 			PreparedStatement stmt = conn.prepareStatement(query);
 			stmt.setString(1, editProperty.getPropertyLocation());
-			stmt.setString(2, editProperty.getPropertyLocation());
-			stmt.executeUpdate(query);
+			stmt.setInt(2, editProperty.getPropertyId());
+			stmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -98,6 +102,7 @@ public class PropertyDaoJdbcImpl implements PropertyDao{
 		try {
 			Statement stmt = conn.createStatement();
 			String query = "delete from property_details where property_id=" + propertyId;
+			System.out.println(query);
 			stmt.executeUpdate(query);
 		} catch (SQLException e) {
 			e.printStackTrace();
