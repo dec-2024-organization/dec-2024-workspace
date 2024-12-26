@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Repository;
+
 import com.demo.spring_rest_demo.pojo.ProductPojo;
 
+@Repository
 public class ProductDaoCollectionImpl implements ProductDao{
 
 	List<ProductPojo> productDataStore = null;
@@ -42,8 +45,12 @@ public class ProductDaoCollectionImpl implements ProductDao{
 
 	@Override
 	public ProductPojo updateProduct(ProductPojo editProduct) {
-		
-		return null;
+		for(int i=0; i<productDataStore.size();i++) {
+			if(productDataStore.get(i).getProductId() == editProduct.getProductId()) {
+				productDataStore.set(i, editProduct);
+			}
+		}
+		return editProduct;
 	}
 
 	@Override
