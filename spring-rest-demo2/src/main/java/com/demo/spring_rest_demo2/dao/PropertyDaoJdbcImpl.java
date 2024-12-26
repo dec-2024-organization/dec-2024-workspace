@@ -66,8 +66,8 @@ public class PropertyDaoJdbcImpl implements PropertyDao{
 			stmt.executeUpdate(query);
 			
 			query = " select last_insert_id()";
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(query);
+			Statement stmt2 = conn.createStatement();
+			ResultSet rs = stmt2.executeQuery(query);
 			if((rs.next())) {
 				newProperty.setPropertyId(rs.getInt(1));
 			}
