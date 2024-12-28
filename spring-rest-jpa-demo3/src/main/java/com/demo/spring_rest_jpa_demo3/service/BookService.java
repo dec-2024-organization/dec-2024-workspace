@@ -57,4 +57,9 @@ public class BookService {
 		});
 		return allBooksPojo;
 	}
+
+	public List<BookEntity> getAllBooksByGenre(String bookGenre) {
+		//return bookRepo.findByBookGenre(bookGenre);
+		return bookRepo.getBooksByGenre(bookGenre);
+	}
 }

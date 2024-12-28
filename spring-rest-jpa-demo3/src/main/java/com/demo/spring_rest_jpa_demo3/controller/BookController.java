@@ -55,4 +55,9 @@ public class BookController {
 	public ResponseEntity<List<BookPojo>> fetchAllBooks(){
 		return new ResponseEntity(bookService.fetchAllBooks(), HttpStatus.OK);
 	}
+	
+	@GetMapping("/books/genre/{genre}")
+	public ResponseEntity<List<BookEntity>> getAllBooksByGenre(@PathVariable("genre") String bGenre){
+		return new ResponseEntity(bookService.getAllBooksByGenre(bGenre), HttpStatus.OK);
+	}
 }

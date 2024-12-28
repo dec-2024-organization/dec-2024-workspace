@@ -39,7 +39,7 @@ public class AuthorEntity {
 	private String authorLastname;
 
 	@OneToMany(mappedBy="author")
-	//@JsonBackReference
+	@JsonBackReference
 	private List<BookEntity> allBooks;
 	
 }
