@@ -4,6 +4,7 @@ import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -17,7 +18,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="userinfo")
+@Table(name="userinfo_details")
 public class UserInfoEntity {
 	@Id
 	@Column(name="username")
@@ -26,7 +27,7 @@ public class UserInfoEntity {
 	@Column(name="password")
 	private String password;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="userinfo_role_details",
 				joinColumns = @JoinColumn(name="username"),
 				inverseJoinColumns = @JoinColumn(name="role_id"))

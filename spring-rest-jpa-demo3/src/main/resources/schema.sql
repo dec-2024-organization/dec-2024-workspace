@@ -1,3 +1,21 @@
+create table userinfo_details(
+	username varchar(20) primary key,
+	password varchar(200)
+);
+
+create table role_details(
+	role_id int auto_increment primary key,
+	role_name varchar(20)
+);
+
+create table userinfo_role_details(
+	ur_id int auto_increment primary key,
+	username varchar(20),
+	role_id int,
+	foreign key(username) references userinfo_details(username),
+	foreign key(role_id) references role_details(role_id)
+);
+
 create table author_details(
    author_id int auto_increment primary key,
    author_firstname varchar(20),
@@ -10,7 +28,9 @@ create table book_details(
    book_genre varchar(20),
    book_image_url varchar(200),
    book_author_id int,
-   foreign key(book_author_id) references author_details(author_id)
+   publisher_username varchar(20),
+   foreign key(book_author_id) references author_details(author_id),
+   foreign key(publisher_username) references userinfo_details(username)
 );
 
 create table character_details(
@@ -27,22 +47,6 @@ create table book_character_details(
 	foreign key(char_id) references character_details(char_id)
 );
 
-create table userinfo(
-	username varchar(20) primary key,
-	password varchar(20)
-);
 
-create table role_details(
-	role_id int auto_increment primary key,
-	role_name varchar(20)
-);
-
-create table userinfo_role_details(
-	ur_id int auto_increment primary key,
-	username varchar(20),
-	role_id int,
-	foreign key(username) references userinfo(username),
-	foreign key(role_id) references role_details(role_id)
-);
 
 

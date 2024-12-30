@@ -55,4 +55,8 @@ public class BookEntity {
 				inverseJoinColumns = @JoinColumn(name="char_id"))
 	private List<CharacterEntity> allCharacters;
 	
+	@ManyToOne
+	@JoinColumn(name="publisher_username")
+	private UserInfoEntity userInfo;
+	
 }
