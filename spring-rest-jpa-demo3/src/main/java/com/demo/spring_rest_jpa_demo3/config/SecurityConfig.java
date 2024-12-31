@@ -11,7 +11,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.demo.spring_rest_jpa_demo3.filter.JwtAuthenticationFilter;
 import com.demo.spring_rest_jpa_demo3.service.CustomUserDetailsService;
 
 @Configuration
@@ -19,6 +21,11 @@ import com.demo.spring_rest_jpa_demo3.service.CustomUserDetailsService;
 @EnableMethodSecurity
 public class SecurityConfig {
 
+	@Bean
+	public JwtAuthenticationFilter jwtAuthenticationFilter() {
+		return new JwtAuthenticationFilter();
+	} 
+	
 	// here we first configure SecurityFilterChain
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -29,7 +36,8 @@ public class SecurityConfig {
 			.authorizeHttpRequests(auth -> auth
 											.requestMatchers("/h2-console/**","/api/authors/**", "/api/users/**").permitAll()
 											.anyRequest().authenticated())
-			.formLogin();
+			.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+			//.formLogin();
 		
 		return http.build();
 	}

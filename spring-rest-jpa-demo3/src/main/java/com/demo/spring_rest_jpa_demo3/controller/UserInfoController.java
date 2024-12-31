@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.demo.spring_rest_jpa_demo3.dao.entity.UserInfoEntity;
+import com.demo.spring_rest_jpa_demo3.service.JwtService;
 import com.demo.spring_rest_jpa_demo3.service.UserInfoService;
 
 @RestController
@@ -31,6 +32,9 @@ public class UserInfoController {
 	
 	@Autowired
 	PasswordEncoder encoder;
+	
+	@Autowired
+	JwtService jwtService;
 	
 	//@PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
 	@GetMapping("/users")
@@ -57,7 +61,7 @@ public class UserInfoController {
 		if(auth.isAuthenticated()) {
 			System.out.println("isAuthentication :" + auth.isAuthenticated());
 			System.out.println("credentials :" + auth.getCredentials());
-			return new ResponseEntity<String>("Login Success!!", HttpStatus.OK);
+			return new ResponseEntity<String>(jwtService.generateToken(userInfo.getUsername()), HttpStatus.OK);
 		}else {
 			System.out.println("exception!!!");
 			throw new UsernameNotFoundException("Invalid Credentials!");
