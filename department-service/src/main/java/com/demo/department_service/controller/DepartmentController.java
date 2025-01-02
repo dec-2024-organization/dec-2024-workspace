@@ -21,6 +21,8 @@ import com.demo.department_service.pojo.DepartmentEmployeePojo;
 import com.demo.department_service.pojo.EmployeePojo;
 import com.demo.department_service.service.DepartmentService;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+
 @RestController
 @RequestMapping("/api")
 public class DepartmentController {
@@ -34,6 +36,7 @@ public class DepartmentController {
 	}
 	
 	@GetMapping("/departments/{did}")
+	@CircuitBreaker(name = "ciremp", fallbackMethod = "fallbackEmployee")
 	public ResponseEntity<DepartmentEmployeePojo> getADepartment(@PathVariable("did") int deptId){
 		RestClient restClient = RestClient.create();
 		List<EmployeePojo> allEmps = restClient
@@ -49,6 +52,10 @@ public class DepartmentController {
 			deptEmpPojo.setAllEmployees(allEmps);
 		}
 		return new ResponseEntity<DepartmentEmployeePojo>(deptEmpPojo, HttpStatus.OK);	
+	}
+	
+	public ResponseEntity<DepartmentEmployeePojo> fallbackEmployee(){
+		return new ResponseEntity<DepartmentEmployeePojo>(new DepartmentEmployeePojo(-1, null, null), HttpStatus.REQUEST_TIMEOUT);
 	}
 	
 	@PostMapping("/departments")
