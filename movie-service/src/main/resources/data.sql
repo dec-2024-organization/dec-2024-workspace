@@ -1,0 +1,1 @@
+insert into movie_details(movie_title, movie_language, movie_release_date, movie_image_url) values('Harry Potter and the Order Of Phoenix', 'English', '2021-10-10', '');
